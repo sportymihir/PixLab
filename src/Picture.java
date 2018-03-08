@@ -45,6 +45,46 @@ public class Picture extends SimplePicture {
 	 * @param width
 	 *            the width of the desired picture
 	 */
+	public void keepOnlyBlue() {
+	    Pixel[][] pixels = this.getPixels2D();
+	    for (Pixel[] rowArray : pixels)
+	    {
+		    for (Pixel pixelObj : rowArray)
+	        {
+			    pixelObj.setRed(0);
+			    pixelObj.setGreen(0);
+	        }
+	    }
+    }
+
+    public void negate() {
+	    Pixel[][] pixels = this.getPixels2D();
+	    for (Pixel[] rowArray : pixels)
+	    {
+		    for (Pixel pixelObj : rowArray)
+	        {
+			    pixelObj.setBlue(255 - pixelObj.getBlue());
+			    pixelObj.setRed(255 - pixelObj.getRed());
+			    pixelObj.setGreen(255 - pixelObj.getGreen());
+	        }
+	    }
+    }
+  
+    public void grayscale() {
+	    Pixel[][] pixels = this.getPixels2D();
+	    for (Pixel[] rowArray : pixels)
+	    {
+		    for (Pixel pixelObj : rowArray)
+	        {
+			    int ave = (pixelObj.getBlue() + pixelObj.getRed() + pixelObj.getGreen()) / 3;
+			    pixelObj.setBlue(ave);
+			    pixelObj.setRed(ave);
+			    pixelObj.setGreen(ave);
+	        }
+	    }
+    }
+
+
 	public Picture(int height, int width) {
 		// let the parent class handle this width and height
 		super(width, height);
