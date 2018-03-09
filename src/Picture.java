@@ -226,6 +226,56 @@ public void mirrorTemple() {
 		}
 	}
 
+	public void mirrorArms()
+	{
+		mirrorPartial(27, 97, 13, 276, 276, false);
+	}
+
+	/** Mirror just part of a picture of a seagull */
+	public void mirrorGull()
+	{
+		mirrorPartial(27, 97, 13, 276, 276, false);
+	}
+
+	public void mirrorPartial(int rowStart, int rowEnd, int colStart, int colEnd,
+			int mirrorPoint, boolean mirrorVertically)
+	{
+		Pixel fromPixel = null;
+		Pixel toPixel = null;
+		Pixel[][] pixels = this.getPixels2D();
+
+		for (int row = rowStart; row < rowEnd; row++)
+		{
+			for (int col = colStart; col < colEnd; col++)
+			{
+				fromPixel = pixels[row][col];
+				if (mirrorVertically)
+				{
+					toPixel = pixels[mirrorPoint - row + mirrorPoint][col];
+
+				} else
+				{
+					toPixel = pixels[row][mirrorPoint - col + mirrorPoint];
+				}
+				toPixel.setColor(fromPixel.getColor());
+			}
+		}
+	}
+
+	public void createCollage () {
+		Picture robot = new Picture("robot.jpg");
+		Picture water = new Picture("water.jpg");
+		Picture koala = new Picture("koala.jpg");
+		this.copy2(robot, 50, 50, 50, 50);
+		this.copy2(water, 100, 50, 50, 50);
+		this.copy2(koala, 200, 50, 50, 50);
+
+		this.mirrorVertical();
+		this.write("collage.jpg")
+
+	}
+
+
 	/**
 	 * copy from the passed fromPic to the specified startRow and startCol in
 	 * the current picture
@@ -301,6 +351,16 @@ public void mirrorTemple() {
 		beach.explore();
 		beach.zeroBlue();
 		beach.explore();
+
 	}
+	public void edgeDetection2(int edgeDist)
+	{
+		Pixel leftPixel = null;
+		Pixel nextPixel = null;
+		Pixel[][] pixels = this.getPixels2D();
+		Color nextColor = null;
+		for (int row = 0; row < pixels.length; row++)
+		{
+			//this is how far I got by the day it was due
 
 } // this } is the end of class Picture, put all new methods before this
